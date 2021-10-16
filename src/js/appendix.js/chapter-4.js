@@ -91,37 +91,62 @@ console.log("INITIAL STORE STATE ->", store.getState());
 // );
 store.subscribe(() => renderUi()); // ! Only 1st subsciption runs
 
-// ************************************** UI (DECLARATIVE) **************************************
+// ************************************** UI (IMPERATIVE) **************************************
 
 // * Master renderUi
 const renderUi = () => {
-  function App(props) {
-    const { store } = props;
-    const { value: counterValue } = store.getState();
+  // Get main store state
+  const state = store.getState();
 
-    // Define event handlers
-    const handleIncrement = () => {
-      var payload = {};
-      var sampleAction = increment(payload);
-      store.dispatch(sampleAction);
-    };
-    const handleDecrement = () => {
-      var payload = {};
-      var sampleAction = decrement(payload);
-      store.dispatch(sampleAction);
-    };
-
-    return (
-      <main>
-        <p>{counterValue}</p>
-        <button onClick={handleIncrement}>Increment</button>
-        <button onClick={handleDecrement}>Decrement</button>
-      </main>
-    );
+  // If the mainEl exists, remove it
+  const mainElRef = document.getElementsByTagName("main")[0];
+  if (mainElRef) {
+    mainElRef.remove();
   }
 
-  // Render App component inside the root element
-  ReactDOM.render(<App store={store} />, rootElement);
+  // Define event handlers
+  const handleIncrement = () => {
+    var payload = {};
+    var sampleAction = increment(payload);
+    store.dispatch(sampleAction);
+  };
+  const handleDecrement = () => {
+    var payload = {};
+    var sampleAction = decrement(payload);
+    store.dispatch(sampleAction);
+  };
+
+  // HTML for reference
+  // <main>
+  //   <p>0</p>
+  //   <button>Increment</button>
+  //   <button>Decrement</button>
+  // </main>
+
+  // main element to wrap everything
+  const mainEl = document.createElement("main");
+
+  // p for current counter value
+  const counterValue = document.createElement("p");
+  counterValue.innerHTML = state.value;
+
+  // button for increment
+  const buttonIncrement = document.createElement("button");
+  buttonIncrement.innerText = "Increment";
+  buttonIncrement.addEventListener("click", handleIncrement);
+
+  // button for decrement
+  const buttonDecrement = document.createElement("button");
+  buttonDecrement.innerText = "Decrement";
+  buttonDecrement.addEventListener("click", handleDecrement);
+
+  // Add all required html elements to main element
+  mainEl.appendChild(counterValue);
+  mainEl.appendChild(buttonIncrement);
+  mainEl.appendChild(buttonDecrement);
+
+  // Add main element to root element
+  rootElement.appendChild(mainEl);
 };
 
 // * Make UI
