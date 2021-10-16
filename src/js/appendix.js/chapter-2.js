@@ -1,21 +1,11 @@
 // * DEFINING REQUIRED CONSTANTS
 // Logger
 const logStyles = { info: "font-size: 20px; color: yellow;" };
-const reduxLocalStorageName = "globalStoreState";
 
 console.log("%cindex.js loaded successfully", logStyles.info);
 
-// * Making required global variables
-const redux = window.Redux;
-const reduxLogger = window.reduxLogger;
-const applyMiddleware = redux.applyMiddleware;
-const createStore = redux.createStore;
-const logger = reduxLogger.logger;
-const saver = (store) => (next) => (action) => {
-  let result = next(action);
-  localStorage[reduxLocalStorageName] = JSON.stringify(store.getState());
-  return result;
-};
+// Redux Lib
+console.log("window.Redux", window.Redux);
 
 // * TERMINOLOGY
 // 1. ACTIONS
@@ -65,25 +55,15 @@ function counterReducer(state = initialState, action) {
   return newState;
 }
 
-// 4. STORE FACTORY
-//    createStore is the function which is provided by redux lib and takes in a reducer to create a store
-//    storeFactory is a custom function which we make to add required helper middleware (eg logger and saver)
-
-const rootReducer = counterReducer; // We will later combine multiple reducers using combineReducers
-const storeFactory = () =>
-  applyMiddleware(logger, saver)(createStore)(rootReducer, initialState);
-
-// 5. STORE
-const store = storeFactory();
+// 4. STORE
+const store = window.Redux.createStore(counterReducer);
 console.log("store", store);
 
 // a. getState
 console.log("INITIAL STORE STATE ->", store.getState());
 
 // b. subscribe
-store.subscribe(() =>
-  console.log("%cSTORE STATE UPDATED ->", logStyles.info, store.getState())
-);
+store.subscribe(() => console.log("STORE STATE UPDATED ->", store.getState()));
 store.subscribe(() => "Update UI"); // ! Only 1st subsciption runs
 
 // c. dispatch
