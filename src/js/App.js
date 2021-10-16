@@ -1,5 +1,5 @@
 // Import required libraries
-import { useEffect } from "react";
+import { Component } from "react";
 
 // Import custom component
 
@@ -16,41 +16,55 @@ import { increment, decrement } from "./redux/actions";
 
 //Defining static variables
 
-function App(props) {
-  // Destructure props
-  const { store } = props;
+class App extends Component {
+  constructor(props) {
+    super(props);
+  }
 
-  // Destructure required variables
-  const { counter } = store.getState();
-  const { value: counterValue } = counter;
-
-  // Define event handlers
-  const handleIncrement = () => {
-    const payload = {};
-    const sampleAction = increment(payload);
-    store.dispatch(sampleAction);
-  };
-  const handleDecrement = () => {
-    const payload = {};
-    const sampleAction = decrement(payload);
-    store.dispatch(sampleAction);
-  };
-
-  // DEBUGGER
-  useEffect(() => {
-    console.groupCollapsed("RENDERED | App.js");
+  componentDidMount() {
+    const { store } = this.props;
+    console.groupCollapsed("MOUNTED | App.js");
     console.log("store", store);
     console.log("store.getState", store.getState());
     console.groupEnd();
-  });
+  }
 
-  return (
-    <main>
-      <p>{counterValue}</p>
-      <button onClick={handleIncrement}>Increment</button>
-      <button onClick={handleDecrement}>Decrement</button>
-    </main>
-  );
+  componentDidUpdate() {
+    const { store } = this.props;
+    console.groupCollapsed("UPDATED | App.js");
+    console.log("store", store);
+    console.log("store.getState", store.getState());
+    console.groupEnd();
+  }
+
+  render() {
+    // Destructure props
+    const { store } = this.props;
+
+    // Destructure required variables
+    const { counter } = store.getState();
+    const { value: counterValue } = counter;
+
+    // Define event handlers
+    const handleIncrement = () => {
+      const payload = {};
+      const sampleAction = increment(payload);
+      store.dispatch(sampleAction);
+    };
+    const handleDecrement = () => {
+      const payload = {};
+      const sampleAction = decrement(payload);
+      store.dispatch(sampleAction);
+    };
+
+    return (
+      <main>
+        <p>{counterValue}</p>
+        <button onClick={handleIncrement}>Increment</button>
+        <button onClick={handleDecrement}>Decrement</button>
+      </main>
+    );
+  }
 }
 
 export default App;
