@@ -1,5 +1,6 @@
 // Import required libraries
 import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 
 // Import custom component
 
@@ -17,8 +18,11 @@ import { increment, decrement } from "../redux/actions";
 //Defining static variables
 
 function Counter(props) {
+  // Using required hooks
+  const dispatch = useDispatch();
+
   // Destructure props
-  const { value = 0, dispatch = () => {} } = props;
+  const { value = 0 } = props;
 
   // Define event handlers
   const handleIncrement = () => {
@@ -41,6 +45,6 @@ function Counter(props) {
   );
 }
 
-const mapStateToProps = (state) => state;
+const mapStateToProps = (state) => ({ store: state });
 
 export default connect(mapStateToProps)(Counter);

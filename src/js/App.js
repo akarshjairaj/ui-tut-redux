@@ -1,6 +1,6 @@
 // Import required libraries
-import { Component } from "react";
-import { connect } from "react-redux";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 // Import custom component
 import Counter from "./components/Counter";
@@ -15,42 +15,43 @@ import Counter from "./components/Counter";
 
 // Import APIs
 
-//Defining static variables
+// Defining static variables
+const mapStateToProps = (state) => state;
+// * Examples
+// // 1. Store
+// const selectorStore = (state) => state;
+// const store = useSelector(selectorStore);
+// const { counter = { value: 0 } } = store;
+// const { value: counterValue = 0 } = counter;
+// // 2. Counter
+// const selectorCounter = (state) => ({ counter: state.counter });
+// const { counter = { value: 0 } } = useSelector(selectorCounter);
+// const { value: counterValue = 0 } = counter;
+// // 3. Counter Value
+// const selectorCounterValue = (state) => ({
+//   counterValue: state.counter.value,
+// });
+// const counter = useSelector(selectorCounterValue);
+// const { counterValue = 0 } = counter;
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-  }
+function App() {
+  // Using required hooks
+  const store = useSelector(mapStateToProps);
+  const { counter = { value: 0 } } = store;
+  const { value: counterValue = 0 } = counter;
 
-  componentDidMount() {
-    const { store = {} } = this.props;
-    console.groupCollapsed("MOUNTED | App.js");
+  // DEBUGGER
+  useEffect(() => {
+    console.groupCollapsed("RENDERED | App.js");
     console.log("store", store);
     console.groupEnd();
-  }
+  });
 
-  componentDidUpdate() {
-    const { store = {} } = this.props;
-    console.groupCollapsed("UPDATED | App.js");
-    console.log("store", store);
-    console.groupEnd();
-  }
-
-  render() {
-    // Destructure props
-    const { counter = {}, dispatch = () => {} } = this.props;
-
-    // Destructure required variables
-    const { value: counterValue } = counter;
-
-    return (
-      <main>
-        <Counter value={counterValue} />
-      </main>
-    );
-  }
+  return (
+    <main>
+      <Counter value={counterValue} />
+    </main>
+  );
 }
 
-const mapStateToProps = (state) => state;
-
-export default connect(mapStateToProps)(App);
+export default App;
