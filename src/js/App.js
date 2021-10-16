@@ -5,6 +5,7 @@ import { Component } from "react";
 import Counter from "./components/Counter";
 
 // Import contexts
+import StoreContext from "./contexts/StoreContext";
 
 // Import utils/data
 
@@ -22,12 +23,12 @@ class App extends Component {
   }
 
   componentWillMount() {
-    const { store } = this.props;
+    const { store } = this.context;
     this.unsubscribe = store.subscribe(() => this.forceUpdate());
   }
 
   componentDidMount() {
-    const { store } = this.props;
+    const { store } = this.context;
     console.groupCollapsed("MOUNTED | App.js");
     console.log("store", store);
     console.log("store.getState", store.getState());
@@ -35,7 +36,7 @@ class App extends Component {
   }
 
   componentDidUpdate() {
-    const { store } = this.props;
+    const { store } = this.context;
     console.groupCollapsed("UPDATED | App.js");
     console.log("store", store);
     console.log("store.getState", store.getState());
@@ -48,7 +49,7 @@ class App extends Component {
 
   render() {
     // Destructure props
-    const { store } = this.props;
+    const { store } = this.context;
 
     // Destructure required variables
     const { counter } = store.getState();
@@ -56,10 +57,13 @@ class App extends Component {
 
     return (
       <main>
-        <Counter value={counterValue} store={store} />
+        <Counter value={counterValue} />
       </main>
     );
   }
 }
+
+// * To let App know which context to consume
+App.contextType = StoreContext;
 
 export default App;

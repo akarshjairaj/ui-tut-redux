@@ -6,6 +6,7 @@ import ReactDOM from "react-dom";
 import App from "./js/App";
 
 // Import contexts
+import StoreContext from "./js/contexts/StoreContext";
 
 // Import utils/data
 import store from "./js/redux/storeInitializer";
@@ -25,4 +26,9 @@ console.log("%cAPPLICATION BOOTSTRAPPED", masterConfig.logStyles.info);
 console.log("INITIAL STORE ", store);
 console.log("INITIAL STORE STATE", store.getState());
 
-ReactDOM.render(<App store={store} />, rootElement);
+ReactDOM.render(
+  <StoreContext.Provider value={{ store: store }}>
+    <App />
+  </StoreContext.Provider>,
+  rootElement
+);

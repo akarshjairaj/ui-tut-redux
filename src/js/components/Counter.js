@@ -1,8 +1,11 @@
 // Import required libraries
+import { useContext } from "react";
 
 // Import custom component
 
 // Import contexts
+// Import contexts
+import StoreContext from "../contexts/StoreContext";
 
 // Import utils/data
 
@@ -17,7 +20,10 @@ import { increment, decrement } from "../redux/actions";
 
 function Counter(props) {
   // Destructure props
-  const { value = 0, store = {} } = props;
+  const { value = 0 } = props;
+
+  // Get contexts
+  const { store } = useContext(StoreContext);
 
   // Destructure required variables
   const { dispatch } = store;
