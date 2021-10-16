@@ -2,6 +2,7 @@
 import { Component } from "react";
 
 // Import custom component
+import Counter from "./components/Counter";
 
 // Import contexts
 
@@ -10,7 +11,6 @@ import { Component } from "react";
 // Import config
 
 // Import action creators
-import { increment, decrement } from "./redux/actions";
 
 // Import APIs
 
@@ -45,23 +45,9 @@ class App extends Component {
     const { counter } = store.getState();
     const { value: counterValue } = counter;
 
-    // Define event handlers
-    const handleIncrement = () => {
-      const payload = {};
-      const sampleAction = increment(payload);
-      store.dispatch(sampleAction);
-    };
-    const handleDecrement = () => {
-      const payload = {};
-      const sampleAction = decrement(payload);
-      store.dispatch(sampleAction);
-    };
-
     return (
       <main>
-        <p>{counterValue}</p>
-        <button onClick={handleIncrement}>Increment</button>
-        <button onClick={handleDecrement}>Decrement</button>
+        <Counter value={counterValue} store={store} />
       </main>
     );
   }
