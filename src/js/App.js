@@ -21,6 +21,11 @@ class App extends Component {
     super(props);
   }
 
+  componentWillMount() {
+    const { store } = this.props;
+    this.unsubscribe = store.subscribe(() => this.forceUpdate());
+  }
+
   componentDidMount() {
     const { store } = this.props;
     console.groupCollapsed("MOUNTED | App.js");
@@ -35,6 +40,10 @@ class App extends Component {
     console.log("store", store);
     console.log("store.getState", store.getState());
     console.groupEnd();
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
   }
 
   render() {
