@@ -1,11 +1,11 @@
 // Import required libraries
 import { Component } from "react";
+import { connect } from "react-redux";
 
 // Import custom component
 import Counter from "./components/Counter";
 
 // Import contexts
-import StoreContext from "./contexts/StoreContext";
 
 // Import utils/data
 
@@ -22,37 +22,26 @@ class App extends Component {
     super(props);
   }
 
-  componentWillMount() {
-    const { store } = this.context;
-    this.unsubscribe = store.subscribe(() => this.forceUpdate());
-  }
-
   componentDidMount() {
-    const { store } = this.context;
+    const { store = {} } = this.props;
     console.groupCollapsed("MOUNTED | App.js");
     console.log("store", store);
-    console.log("store.getState", store.getState());
     console.groupEnd();
   }
 
   componentDidUpdate() {
-    const { store } = this.context;
+    const { store = {} } = this.props;
     console.groupCollapsed("UPDATED | App.js");
     console.log("store", store);
-    console.log("store.getState", store.getState());
     console.groupEnd();
-  }
-
-  componentWillUnmount() {
-    this.unsubscribe();
   }
 
   render() {
     // Destructure props
-    const { store } = this.context;
+    const { store = {}, dispatch = () => {} } = this.props;
 
     // Destructure required variables
-    const { counter } = store.getState();
+    const { counter } = store;
     const { value: counterValue } = counter;
 
     return (
@@ -63,7 +52,6 @@ class App extends Component {
   }
 }
 
-// * To let App know which context to consume
-App.contextType = StoreContext;
+const mapStateToProps = (state) => ({ store: state });
 
-export default App;
+export default connect(mapStateToProps)(App);

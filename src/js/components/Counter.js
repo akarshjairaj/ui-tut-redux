@@ -1,11 +1,9 @@
 // Import required libraries
-import { useContext } from "react";
+import { connect } from "react-redux";
 
 // Import custom component
 
 // Import contexts
-// Import contexts
-import StoreContext from "../contexts/StoreContext";
 
 // Import utils/data
 
@@ -20,13 +18,7 @@ import { increment, decrement } from "../redux/actions";
 
 function Counter(props) {
   // Destructure props
-  const { value = 0 } = props;
-
-  // Get contexts
-  const { store } = useContext(StoreContext);
-
-  // Destructure required variables
-  const { dispatch } = store;
+  const { value = 0, state = {}, dispatch = () => {} } = props;
 
   // Define event handlers
   const handleIncrement = () => {
@@ -49,4 +41,6 @@ function Counter(props) {
   );
 }
 
-export default Counter;
+const mapStateToProps = (state) => ({ store: state });
+
+export default connect(mapStateToProps)(Counter);

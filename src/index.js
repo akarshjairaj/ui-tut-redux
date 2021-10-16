@@ -1,12 +1,12 @@
 // Import required libraries
 import React from "react";
 import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
 
 // Import custom component
 import App from "./js/App";
 
 // Import contexts
-import StoreContext from "./js/contexts/StoreContext";
 
 // Import utils/data
 import store from "./js/redux/storeInitializer";
@@ -27,8 +27,8 @@ console.log("INITIAL STORE ", store);
 console.log("INITIAL STORE STATE", store.getState());
 
 ReactDOM.render(
-  <StoreContext.Provider value={{ store: store }}>
+  <Provider store={store}>
     <App />
-  </StoreContext.Provider>,
+  </Provider>,
   rootElement
 );
