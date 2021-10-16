@@ -29,4 +29,18 @@ const decrement = (payload) => {
   };
 };
 
-export { increment, decrement };
+// * REFERENCE
+// const replaceAction = {
+//   type: "COUNTER/REPLACE",
+//   payload: { replacedState = { value: 0 } },
+// }
+const replace = (payload) => {
+  const { replacedState = { value: 0 } } = payload;
+  const payloadFinal = { replacedState };
+  return {
+    type: C.COUNTER_REPLACE,
+    payload: payloadFinal,
+  };
+};
+
+export { increment, decrement, replace };

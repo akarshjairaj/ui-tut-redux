@@ -1,13 +1,17 @@
 // Import required libraries
-import { useDispatch } from "react-redux";
+import { useEffect, useReducer } from "react";
 
 // Import custom component
 
 // Import contexts
 
 // Import utils/data
+import useCustomReducer from "../hooks/useCustomReducer";
 
 // Import config
+
+// Import reducers
+import counterReducer from "../redux/reducers/counter";
 
 // Import action creators
 import { increment, decrement } from "../redux/actions";
@@ -18,10 +22,19 @@ import { increment, decrement } from "../redux/actions";
 
 function Counter(props) {
   // Using required hooks
-  const dispatch = useDispatch();
 
   // Destructure props
-  const { value = 0 } = props;
+  const { value = 0, onChange = () => {} } = props;
+
+  // Defining requried state
+  const [state, dispatch] = useReducer(counterReducer, { value });
+  // const [state, dispatch] = useCustomReducer(counterReducer, { value });
+
+  // Defining required side effects
+  // Update parent state evertime value changes
+  useEffect(() => {
+    onChange(state);
+  }, [state]);
 
   // Define event handlers
   const handleIncrement = () => {
@@ -37,7 +50,7 @@ function Counter(props) {
 
   return (
     <article>
-      <p>{value}</p>
+      <p>{state.value}</p>
       <button onClick={handleIncrement}>Increment</button>
       <button onClick={handleDecrement}>Decrement</button>
     </article>

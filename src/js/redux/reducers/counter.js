@@ -6,7 +6,7 @@ import { initialCounterState as defaultCounterState } from "../stateData";
 
 function counter(state = defaultCounterState, action) {
   const { type: actionType = "", payload = {} } = action;
-  const {} = payload;
+  const { replacedState = { defaultCounterState } } = payload;
 
   let newState = { ...state };
   switch (actionType) {
@@ -15,6 +15,9 @@ function counter(state = defaultCounterState, action) {
       break; // ! NEVER FORGET THIS
     case C.COUNTER_DECREMENT:
       newState = { value: state.value - 1 };
+      break; // ! NEVER FORGET THIS
+    case C.COUNTER_REPLACE:
+      newState = { ...replacedState };
       break; // ! NEVER FORGET THIS
     default:
       // ! This may logged for the first time when createStore is invoked
