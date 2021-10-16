@@ -18,7 +18,7 @@ import { increment, decrement } from "../redux/actions";
 
 function Counter(props) {
   // Destructure props
-  const { value = 0, state = {}, dispatch = () => {} } = props;
+  const { value = 0, dispatch = () => {} } = props;
 
   // Define event handlers
   const handleIncrement = () => {
@@ -41,6 +41,6 @@ function Counter(props) {
   );
 }
 
-const mapStateToProps = (state) => ({ store: state });
+const mapStateToProps = (state) => state;
 
 export default connect(mapStateToProps)(Counter);

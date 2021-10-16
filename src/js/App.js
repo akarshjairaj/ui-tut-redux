@@ -38,10 +38,9 @@ class App extends Component {
 
   render() {
     // Destructure props
-    const { store = {}, dispatch = () => {} } = this.props;
+    const { counter = {}, dispatch = () => {} } = this.props;
 
     // Destructure required variables
-    const { counter } = store;
     const { value: counterValue } = counter;
 
     return (
@@ -52,6 +51,6 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({ store: state });
+const mapStateToProps = (state) => state;
 
 export default connect(mapStateToProps)(App);
