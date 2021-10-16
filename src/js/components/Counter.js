@@ -1,5 +1,4 @@
 // Import required libraries
-import { connect } from "react-redux";
 import { useDispatch } from "react-redux";
 
 // Import custom component
@@ -45,6 +44,4 @@ function Counter(props) {
   );
 }
 
-const mapStateToProps = (state) => ({ store: state });
-
-export default connect(mapStateToProps)(Counter);
+export default Counter;
