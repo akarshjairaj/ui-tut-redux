@@ -1,0 +1,6 @@
+const C = {
+  COUNTER_INCREMENT: "COUNTER/INCREMENT",
+  COUNTER_DECREMENT: "COUNTER/DECREMENT",
+};
+
+export default C;
