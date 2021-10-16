@@ -43,4 +43,18 @@ const replace = (payload) => {
   };
 };
 
-export { increment, decrement, replace };
+// * REFERENCE
+// const replaceAction = {
+//   type: "COUNTER/REPLACE",
+//   payload: { replacedState = { value: 0 } },
+// }
+const toggleTheme = (payload) => {
+  const {} = payload;
+  const payloadFinal = {};
+  return {
+    type: C.THEME_TOGGLE,
+    payload: payloadFinal,
+  };
+};
+
+export { increment, decrement, replace, toggleTheme };

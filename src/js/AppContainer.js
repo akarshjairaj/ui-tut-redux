@@ -17,6 +17,9 @@ import masterConfig from "./config";
 
 // Import APIs
 
+// Import styles
+import "../style/main.css";
+
 // Defining static variables
 
 // Log Initial State

@@ -1,0 +1,13 @@
+main {
+  padding: 20px 10px;
+}
+
+main.dark {
+  background-color: #212121;
+  color: #e2e2e2;
+}
+
+main.light {
+  background-color: #e2e2e2;
+  color: #212121;
+}

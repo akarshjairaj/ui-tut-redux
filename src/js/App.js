@@ -12,7 +12,7 @@ import Counter from "./components/Counter";
 // Import config
 
 // Import action creators
-import { replace } from "./redux/actions";
+import { replace, toggleTheme } from "./redux/actions";
 
 // Import APIs
 
@@ -20,11 +20,13 @@ import { replace } from "./redux/actions";
 const selectorCounterValue = (state) => ({
   counterValue: state.counter.value,
 });
+const selectorTheme = (state) => state.theme;
 
 function App() {
   // Using required hooks
   const counter = useSelector(selectorCounterValue);
   const { counterValue = 0 } = counter;
+  const theme = useSelector(selectorTheme);
   const dispatch = useDispatch();
 
   // DEBUGGER
@@ -40,9 +42,13 @@ function App() {
     const sampleAction = replace(payload);
     dispatch(sampleAction);
   };
+  const handleThemeToggle = () => {
+    dispatch(toggleTheme({}));
+  };
 
   return (
-    <main>
+    <main className={theme}>
+      <button onClick={handleThemeToggle}>TOGGLE THEME</button>
       <h1>Self-Contained Counter | Connected to Store</h1>
       <Counter value={counterValue} onChange={handleChange} />
       <br />
